@@ -1,4 +1,3 @@
--- 1. Подключаемся к своей базе данных (замените my_database на свою)
 USE northwind;
 
 -- 2. Создаем таблицу погоды за последние 5 дней
@@ -7,7 +6,7 @@ CREATE TABLE weather (
     date DATE NOT NULL,
     day_temp INT CHECK (day_temp BETWEEN -30 AND 30),
     night_temp INT CHECK (night_temp BETWEEN -30 AND 30),
-    wind_speed DECIMAL(3,1) CHECK (wind_speed >= 0) -- скорость ветра может иметь дробную часть
+    wind_speed DECIMAL(3,1) CHECK (wind_speed >= 0) 
 );
 
 -- 3. Заполняем таблицу 5 строками
