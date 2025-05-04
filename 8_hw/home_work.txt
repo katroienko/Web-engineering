@@ -1,0 +1,73 @@
+1. Найдите все записи таблицы Printer для цветных принтеров.
+
+SELECT
+	*
+FROM
+	printer
+WHERE
+	color = 'y';
+
+
+2. Найдите номера моделей и цены всех имеющихся в продаже 
+продуктов (любого типа) производителя B (латинская буква).
+
+SELECT
+	product.model,
+    	COALESCE(pc.price, laptop.price, printer.price) AS price
+FROM
+	product
+LEFT JOIN pc ON product.model = pc.model
+LEFT JOIN laptop ON product.model = laptop.model
+LEFT JOIN printer ON product.model = printer.model
+WHERE
+	product.maker = 'B';
+
+3. Найдите производителя, выпускающего ПК, но не ПК-блокноты.
+
+SELECT
+	DISTINCT maker
+FROM
+	product
+WHERE
+	type = 'PC'
+	AND 
+	maker NOT IN (
+    		SELECT 
+			maker 
+		FROM 
+			product 
+		WHERE 
+			type = 'Laptop'
+	);
+
+4. Найдите производителей ПК с процессором не менее 450 Мгц. 
+Вывести: Maker
+
+SELECT
+	DISTINCT maker
+FROM
+	product
+JOIN pc ON product.model = pc.model
+WHERE
+	speed >= 450;
+
+
+5. Найдите среднюю скорость ПК.
+
+SELECT
+	AVG(speed) AS average_speed
+FROM 
+	pc;
+
+
+6. Для каждого производителя, имеющего модели в таблице Laptop, 
+найдите средний размер экрана выпускаемых им ПК-блокнотов.
+Вывести: maker, средний размер экрана.
+
+SELECT
+	product.maker,
+	AVG(laptop.screen) AS avarage_screen
+FROM
+	product
+JOIN laptop ON product.model = laptop.model
+GROUP BY product.maker;
