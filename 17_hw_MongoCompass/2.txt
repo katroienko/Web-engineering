@@ -1,0 +1,27 @@
+Тестовая коллекция в mongo atlas  sample_airbnb.listingsAndReviews
+Найти недвижимость с самым большим количеством спален (bedrooms) и напишите ее название 
+
+ANSWER
+{
+  "name": "Venue Hotel Old City",
+  "bedrooms": 20
+}
+
+[
+
+
+
+  {
+    $sort: { bedrooms: -1 } 
+  },
+  {
+    $limit: 1 
+  },
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      bedrooms: 1
+    }
+  }
+]

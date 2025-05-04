@@ -1,0 +1,59 @@
+3. Тестовая коллекция в mongo atlas  sample_airbnb.listingsAndReviews
+
+Найти недвижимость с самым высоким рейтингом  review_scores_rating при минимальном количестве отзывов 50 (number_of_reviews) и напишите ее название 
+
+ANSWER
+{
+  "_id": "1001265",
+  "name": "Ocean View Waikiki Marina w/prkg",
+  "bedrooms": 1,
+  "number_of_reviews": 96,
+  "review_scores_rating": 84
+}
+
+
+
+[
+  {
+    $match:
+      /**
+       * query: The query in MQL.
+       */
+      {
+        number_of_reviews: {
+          $gte: 50
+        }
+      }
+  },
+  {
+    $sort:
+      /**
+       * Provide any number of field/order pairs.
+       */
+      {
+        review_scores_rating: -1
+      }
+  },
+  {
+    $limit:
+      /**
+       * Provide the number of documents to limit.
+       */
+      1
+  },
+  {
+    $project:
+      /**
+       * specifications: The fields to
+       *   include or exclude.
+       */
+      {
+        name: 1,
+        bedrooms: 1,
+        review_scores_rating: 1,
+        number_of_reviews: 1,
+        review_scores_rating:
+          "$review_scores.review_scores_rating"
+      }
+  }
+]
