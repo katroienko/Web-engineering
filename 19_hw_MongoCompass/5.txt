@@ -1,0 +1,41 @@
+Экспортируйте 20 самых популярных (прослушивания или просмотры) треков по версиям youtube и spotify и импортируйте в базу ich_edit их с именами top20youtube и top20spotify, и добавьте им свои имена для уникальности.
+
+Пишет что у меня нету прав доступа.
+
+not authorized on ich to execute command { aggregate: "Spotify_Youtube", pipeline: [ { $sort: { Views: -1 } }, { $limit: 20 }, { $out: { db: "ich_edit", coll: "top20spotify_Roienko" } } ], allowDiskUse: true, cursor: {}, maxTimeMS: 60000, lsid: { id: UUID("e5b16f33-04d9-4e5c-b222-1cd594b2aec3") }, $db: "ich" }
+
+[
+  {
+    $sort:
+      /**
+       * Provide any number of field/order pairs.
+       */
+      {
+        Views: -1
+      }
+  },
+  {
+    $limit:
+      /**
+       * Provide the number of documents to limit.
+       */
+      20
+  },
+  {
+    $out:
+      /**
+       * Provide the name of the output database and collection.
+       */
+      {
+        db: "ich_edit",
+        coll: "top20spotify_Roienko"
+        /*
+    timeseries: {
+      timeField: 'field',
+      bucketMaxSpanSeconds: 'number',
+      granularity: 'granularity'
+    }
+    */
+      }
+  }
+]

@@ -1,0 +1,43 @@
+Из базы данных ich работаем с коллекцией ich.Spotify_Youtube:
+
+Найдите трек с наивысшими показателями  Danceability и Energy. 
+{
+  "_id": {
+    "$oid": "65b21e65fdad676b321884ce"
+  },
+  "Track": "Give It To Me",
+  "Danceability": 0.975,
+  "Energy": 0.711
+}
+
+[
+  {
+    $sort:
+      /**
+       * Provide any number of field/order pairs.
+       */
+      {
+        Danceability: -1,
+        Energy: -1
+      }
+  },
+  {
+    $project:
+      /**
+       * specifications: The fields to
+       *   include or exclude.
+       */
+      {
+        Track: 1,
+        Energy: 1,
+        Danceability: 1
+      }
+  },
+  {
+    $limit:
+      /**
+       * Provide the number of documents to limit.
+       */
+      1
+  }
+]
